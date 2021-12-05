@@ -8,7 +8,7 @@ import (
 	"os"
 	"os/signal"
 
-	db "../../db"
+	db "architecture-lab-3/server/db/db"
 )
 
 var httpPortNumber = flag.Int("p", 8080, "HTTP port number")
