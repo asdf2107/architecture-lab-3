@@ -15,8 +15,8 @@ var httpPortNumber = flag.Int("p", 8080, "HTTP port number")
 
 func NewDbConnection() (*sql.DB, error) {
 	conn := &db.Connection{
-		DbName:     "chat-example",
-		User:       "roman",
+		DbName:     "",
+		User:       "",
 		Host:       "localhost",
 		DisableSSL: true,
 	}
