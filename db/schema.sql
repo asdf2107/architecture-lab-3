@@ -1,5 +1,6 @@
 -- Create tables --
 DROP TABLE IF EXISTS InterestsToUsers;
+DROP TABLE IF EXISTS UsersToForums;
 DROP TABLE IF EXISTS Forums;
 DROP TABLE IF EXISTS Interests;
 DROP TABLE IF EXISTS Users;
@@ -17,7 +18,6 @@ CREATE TABLE Forums
   InterestId INT NOT NULL FOREIGN KEY REFERENCES Interests(id)
 );
 
-
 CREATE TABLE Users
 (
   id INT PRIMARY KEY,
@@ -29,4 +29,11 @@ CREATE TABLE InterestsToUsers
   UserId INT NOT NULL FOREIGN KEY REFERENCES Users(id),
   InterestId INT NOT NULL FOREIGN KEY REFERENCES Interests(id),
   PRIMARY KEY (UserId, InterestId)
+);
+
+CREATE TABLE UsersToForums
+(
+  UserId INT NOT NULL FOREIGN KEY REFERENCES Users(id),
+  ForumId INT NOT NULL FOREIGN KEY REFERENCES Forums(id),
+  PRIMARY KEY (UserId, ForumId)
 );
