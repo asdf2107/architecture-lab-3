@@ -4,7 +4,7 @@ import (
 	"log"
 	"net/http"
 
-	"./../../server/tools"
+	"architecture-lab-3/server/tools"
 )
 
 // Channels HTTP handler.
