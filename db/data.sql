@@ -24,11 +24,3 @@ insert into InterestsToUsers (UserId, InterestId) values
 (1, 2),
 (1, 3),
 (1, 4);
-
-insert into UsersToForums (UserId, ForumId) values
-(0, 0),
-(0, 1),
-(0, 2),
-(1, 0),
-(1, 1),
-(1, 2);
