@@ -14,6 +14,10 @@ type Store struct {
 	Db *sql.DB
 }
 
+func GetStore(db *sql.DB) *Store {
+	return &Store{Db: db}
+}
+
 func (s *Store) CreateUser(user *User) error {
 	_, err := s.Db.Query(
 		`declare @userName varchar(50) = ?

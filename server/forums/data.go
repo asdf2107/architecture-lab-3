@@ -21,6 +21,10 @@ type Forum struct {
 	users        []string
 }
 
+func GetStore(db *sql.DB) *Store {
+	return &Store{Db: db}
+}
+
 func (s *Store) ListForums() ([]*Forum, error) {
 	rows, err := s.Db.Query(
 		`select f.Name, i.Name, string_agg(u.UserName, ';') from Forums f
