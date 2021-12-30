@@ -23,14 +23,25 @@ func (s *Store) CreateUser(user *User) error {
 		`declare @userName varchar(50) = ?
 		insert into Users (UserName) values (@userName)
 		declare @userId int = (select id from Users where UserName = @userName)
-		`+InsertInterestsToUsersString(user.Interests), user.UserName)
+		`+InsertInterestsToUsersString(user.Interests), GetQueryArgs(user)...)
 	return err
+}
+
+func GetQueryArgs(user *User) []interface{} {
+	res := make([]interface{}, len(user.Interests)+1)
+	res[0] = user.UserName
+
+	for i, v := range user.Interests {
+		res[i+1] = v
+	}
+
+	return res
 }
 
 func InsertInterestsToUsersString(interests []string) string {
 	res := ""
-	for _, v := range interests {
-		res += "insert into InterestsToUsers (UserId, InterestId) values (@userId, " + v + `)
+	for range interests {
+		res += `insert into InterestsToUsers (UserId, InterestId) values (@userId, ?)
 		`
 	}
 	return res
