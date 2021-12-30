@@ -46,7 +46,7 @@ func handleUserCreate(r *http.Request, rw http.ResponseWriter, store *Store) {
 }
 
 func validateUser(user User) error {
-	if len(user.userName) == 0 {
+	if len(user.UserName) == 0 {
 		return errors.New("userName may not be empty")
 	}
 	return nil
