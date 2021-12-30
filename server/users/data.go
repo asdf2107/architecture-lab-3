@@ -5,13 +5,17 @@ import (
 )
 
 type User struct {
-	id        int
-	userName  string
-	interests []string
+	Id        int      `json:"id"`
+	UserName  string   `json:"UserName"`
+	Interests []string `json:"Interests"`
 }
 
 type Store struct {
 	Db *sql.DB
+}
+
+func GetStore(db *sql.DB) *Store {
+	return &Store{Db: db}
 }
 
 func (s *Store) CreateUser(user *User) error {
@@ -19,7 +23,7 @@ func (s *Store) CreateUser(user *User) error {
 		`declare @userName varchar(50) = ?
 		insert into Users (UserName) values (@userName)
 		declare @userId int = (select id from Users where UserName = @userName)
-		`+InsertInterestsToUsersString(user.interests), user.userName)
+		`+InsertInterestsToUsersString(user.Interests), user.UserName)
 	return err
 }
 

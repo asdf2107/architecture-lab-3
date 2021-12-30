@@ -10,15 +10,19 @@ type Store struct {
 }
 
 type QueryForum struct {
-	name         string
-	topicKeyword string
-	usersString  string
+	Name         string `json:"Name"`
+	TopicKeyword string `json:"TopicKeyword"`
+	UsersString  string `json:"UsersString"`
 }
 
 type Forum struct {
-	name         string
-	topicKeyword string
-	users        []string
+	Name         string   `json:"Name"`
+	TopicKeyword string   `json:"TopicKeyword"`
+	Users        []string `json:"Users"`
+}
+
+func GetStore(db *sql.DB) *Store {
+	return &Store{Db: db}
 }
 
 func (s *Store) ListForums() ([]*Forum, error) {
@@ -35,7 +39,7 @@ func (s *Store) ListForums() ([]*Forum, error) {
 	var res []*Forum
 	for rows.Next() {
 		var forum QueryForum
-		if err := rows.Scan(&forum.name, &forum.topicKeyword, &forum.usersString); err != nil {
+		if err := rows.Scan(&forum.Name, &forum.TopicKeyword, &forum.UsersString); err != nil {
 			return nil, err
 		}
 		res = append(res, forum.ToForum())
@@ -48,8 +52,8 @@ func (s *Store) ListForums() ([]*Forum, error) {
 
 func (qforum *QueryForum) ToForum() *Forum {
 	return &Forum{
-		name:         qforum.name,
-		topicKeyword: qforum.topicKeyword,
-		users:        strings.Split(qforum.usersString, ";"),
+		Name:         qforum.Name,
+		TopicKeyword: qforum.TopicKeyword,
+		Users:        strings.Split(qforum.UsersString, ";"),
 	}
 }
